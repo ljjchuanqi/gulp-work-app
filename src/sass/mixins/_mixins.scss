@@ -1,0 +1,37 @@
+////透明度opacity
+//@mixin opacity ($opacity:50){
+//  filter: alpha(opacity=$opacity);
+//  opacity: $opacity/100;
+//}
+//$inline-block-alignment:middle!default;//设置一个默认的对齐方式
+$legacy-support-for-ie:true!default;//设置一个默认的兼容ie
+//// 提供一个跨浏览器的方法来实现`display:inline-block`
+//@mixin inline-block($alignment:$inline-block-alignment){
+//  display: inline-block;
+//  @if $alignment and $alignment !=none{
+//      vertical-align: $alignment;
+//  }
+//  @if $legacy-support-for-ie{
+//      *vertical-align:auto;
+//      zoom: 1;
+//      *display: inline;
+//  }
+//}
+//图片替代文本，通过before伪类将文字挤出视窗。
+@mixin ir {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  @if $legacy-support-for-ie {
+    *text-indent: -9999px;
+  }  
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+  }
+}
+@function torem($px){//$px为需要转换的字号
+  @return $px / 75px * 1rem; //40px为根字体大小
+}

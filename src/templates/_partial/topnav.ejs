@@ -1,0 +1,195 @@
+<!--头部导航-->
+	<div class="q_wrapnav">
+		<div class="q_header" id="q_hwp">
+			<nav id="q_nav" class="q_bar">
+				<div class="q_tabwp">
+					<div class="q_tabcnt">
+						<div class="swiper-container swiper-container-horizontal">
+							<div class="swiper-wrapper">
+								<a href="javascript:;" class="q_hwhg swiper-slide">服饰美妆</a>
+								<a href="javascript:;" class="q_njlh swiper-slide">数码家电</a>
+								<a href="javascript:;" class="q_njlh swiper-slide">美食天下</a>
+								<a href="javascript:;" class="q_njlh swiper-slide">全民健身</a>
+								<a href="javascript:;" class="q_njlh swiper-slide">妈咪萌宝</a>
+								<a href="javascript:;" class="q_njlh swiper-slide">当季家纺</a>
+								<a href="javascript:;" class="q_njlh swiper-slide">靓鞋箱包</a>
+							</div>
+						</div>
+					</div>
+					<span class="q_navpop_header q_navpop_headerno">切换楼层</span>
+					<a href="javascript:;" class="q_tabmore"></a>
+				</div>
+			</nav>
+		</div>
+		<div class="q_morewp" id="q_menu">
+			<div class="q_mask"></div>
+			<div class="q_morecnt">
+				<div class="q_morehd">
+					<div class="q_blockbtns fix">
+						<div class="q_blockgroup fix">
+							<a href="javascript:;" class="q_hwhg q_tab">服饰美妆</a>
+							<a href="javascript:;" class="q_njlh q_tab">数码家电</a>
+							<a href="javascript:;" class="q_njlh q_tab">美食天下</a>
+							<a href="javascript:;" class="q_njlh q_tab">全民健身</a>
+							<a href="javascript:;" class="q_njlh q_tab">妈咪萌宝</a>
+							<a href="javascript:;" class="q_njlh q_tab">当季家纺</a>
+							<a href="javascript:;" class="q_njlh q_tab">靓鞋箱包</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/swiper.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function (e) {
+			/*toubu*/
+			var swiper = new Swiper('.swiper-container', {
+				slidesPerView: 4,
+				paginationClickable: true
+			});
+			$(".swiper-slide").on("click", function () {
+				$(this).addClass("active").siblings().removeClass("active");
+				//var zin=$(this).index();
+			})
+			var zinl = $(".swiper-slide").length;
+			//console.log(zinl);
+			$(".swiper-slide").each(function () {
+				var zin = $(this).index();
+				$(this).on("click", function () {
+					$(".q_blockgroup").find("a").eq(zin).addClass("q_tabon").siblings().removeClass("q_tabon");
+					var param = 0;
+					if (zin > 1 && zin < zinl) {
+						var n = zin - 1;
+						var w = Math.round($(this).width() / 2);
+						var i = n * w;
+						param -= i;
+						$(this).parent(".swiper-wrapper").css({
+							'-webkit-transform': 'translate3d(' + param * 2 + 'px,0,0)',
+							'-moz-transform': 'translate3d(' + param * 2 + 'px,0,0) ',
+							'-o-transform': 'translate3d(' + param * 2 + 'px,0,0) ',
+							'-ms-transform': 'translate3d(' + param * 2 + 'px,0,0) ',
+							'transform': 'translate3d(' + param * 2 + 'px,0,0)',
+						})
+					}
+				})
+			})
+			$(".q_blockgroup").find("a").on("click", function () {
+				var inl = $(this).index();
+				var mwid = $(".swiper-slide").width();
+				$(this).addClass("q_tabon").siblings().removeClass("q_tabon");
+				$(".swiper-slide").eq(inl).addClass("active").siblings().removeClass("active");
+				$(".q_morewp").removeClass("q_moreopen");
+				$(".q_tabcnt").toggleClass("q_tabcntno");
+				$(".q_navpop_header").toggleClass("q_navpop_headerno");
+				$(".q_tabmore").removeClass(" q_tab_more_open");
+				if (inl > 2 && inl < zinl) {
+					var i = (2 - inl) * mwid;
+					$(".swiper-wrapper").css({
+						'-webkit-transform': 'translate3d(' + i + 'px,0,0)',
+						'-moz-transform': 'translate3d(' + i + 'px,0,0) ',
+						'-o-transform': 'translate3d(' + i + 'px,0,0) ',
+						'-ms-transform': 'translate3d(' + i + 'px,0,0) ',
+						'transform': 'translate3d(' + i + 'px,0,0)',
+					})
+				} else if (inl < 3) {
+					$(".swiper-wrapper").css({
+						'-webkit-transform': 'translate3d(' + 0 + 'px,0,0)',
+						'-moz-transform': 'translate3d(' + 0 + 'px,0,0) ',
+						'-o-transform': 'translate3d(' + 0 + 'px,0,0) ',
+						'-ms-transform': 'translate3d(' + 0 + 'px,0,0) ',
+						'transform': 'translate3d(' + 0 + 'px,0,0)',
+					})
+				}
+			})
+			$(".q_tabmore").on("click", function () {
+				$(".q_morewp").toggleClass("q_moreopen");
+				$(".q_tabcnt").toggleClass("q_tabcntno");
+				$(".q_navpop_header").toggleClass("q_navpop_headerno");
+			})
+			$(".q_colse").on("click", function () {
+				$(".q_morewp").removeClass("q_moreopen");
+			})
+			$(".swiper-slide").on("click", function () {
+				$(".q_morewp").removeClass("q_moreopen");
+			})
+			$(".q_tabmore").on("click", function () {
+				$(this).toggleClass("q_tab_more_open");
+			})
+			$("body").hover(function () {
+				$(".q_morewp").removeClass("q_moreopen");
+				$(".q_navpop_header").addClass("q_navpop_headerno");
+				$(".q_tabcnt").removeClass("q_tabcntno");
+			})
+			$(window).scroll(function () {
+				var scro = $(window).scrollTop();
+				if (scro > 50) {
+					$(".q_wrapnav").stop().animate({
+						opacity: 1
+					}, "fast");
+				} else {
+					$(".q_wrapnav").stop().animate({
+						opacity: 0
+					}, "fast");
+				}
+			})
+			$(window).scroll(function () {
+				$(".q_morewp").removeClass("q_moreopen");
+				$(".q_tabmore ").removeClass("q_tab_more_open");
+				$(".q_tabcnt ").removeClass("q_tabcntno");
+				$(".q_navpop_header").addClass("q_navpop_headerno")
+			})
+			$(".swiper-wrapper").find("a").each(function () {
+				var zin = $(this).index();
+				$(this).on("click", function () {
+					var of = $(".q_floor").eq(zin);
+					var offset = of .offset().top - 50;
+					$("html,body").stop().animate({
+						scrollTop: offset
+					}, 300);
+				})
+			})
+			$(".q_blockgroup").find("a").each(function () {
+				var zin = $(this).index();
+				$(this).on("click", function () {
+					var of = $(".q_floor").eq(zin);
+					var offset = of .offset().top - 50;
+					$("html,body").stop().animate({
+						scrollTop: offset
+					}, 300);
+				})
+			})
+			// 滚动改变头部
+			$(window).scroll(function () {
+				var mwid = $(".swiper-slide").width();
+				var le = $(".q_floor").size();
+				var scro = $(this).scrollTop();
+				for (var n = 0; n < le; n++) {
+					var offe = $(".q_floor").eq(n);
+					var offset = offe.offset().top;
+					if (scro > offset - 100) {
+						$(".q_tabcnt").find("a").eq(n).addClass("active");
+						$(".q_tabcnt").find("a").eq(n).siblings().removeClass("active");
+						if (n > 2 && n < le) {
+							var i = (2 - n) * mwid;
+							$(".swiper-wrapper").css({
+								'-webkit-transform': 'translate(' + i + 'px,0) translateZ(0px)',
+								'-moz-transform': 'translate(' + i + 'px,0) translateZ(0px) ',
+								'-o-transform': 'translate(' + i + 'px,0) translateZ(0px)',
+								'-ms-transform': 'translate(' + i + 'px,0) translateZ(0px) ',
+								'transform': 'translate(' + i + 'px,0) translateZ(0px)',
+							})
+						} else if (n < 3) {
+							$(".swiper-wrapper").css({
+								'-webkit-transform': 'translate(' + 0 + 'px,0) translateZ(0px)',
+								'-moz-transform': 'translate(' + 0 + 'px,0) translateZ(0px) ',
+								'-o-transform': 'translate(' + 0 + 'px,0) translateZ(0px) ',
+								'-ms-transform': 'translate(' + 0 + 'px,0) translateZ(0px) ',
+								'transform': 'translate(' + 0 + 'px,0) translateZ(0px) ',
+							})
+						}
+					}
+				}
+			})
+		})
+	</script>

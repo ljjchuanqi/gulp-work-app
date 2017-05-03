@@ -1,0 +1,18 @@
+<li>
+	<a href="<%= product.link %>">
+		<div class="q_imgbox">
+			<img src original="images/<%= product.pic %>.jpg">
+			<p><%= product.title %></p>
+		</div>
+		<div class="q_jgbox fix">
+			<span class="q_icon">
+				<img src="images/xiaologo.png">
+			</span>
+			<div class="fr">
+				<span class="q_yj">原价:¥<%= product.yprice %></span>
+				<span class="q_price"><em>抢购价:¥</em><%= product.price %></span>
+			</div>
+		</div>
+		<p class="q_buy">立即购买<span>&nbsp;<img src="images/q_buyicon.png"></span></p>
+	</a>
+</li>

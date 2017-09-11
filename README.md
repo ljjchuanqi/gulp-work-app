@@ -16,3 +16,4 @@ Sass 是与 Less 并举的 CSS 预处理器，一种全新的CSS 编码方式。
 在项目文件夹目录下通过下面命令安装相关Node 模块
 
     cnpm install or npm install
+4.test

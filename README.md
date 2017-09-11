@@ -11,5 +11,5 @@ Sass 是与 Less 并举的 CSS 预处理器，一种全新的CSS 编码方式。
     
     $ npm install --global gulp
 
-2.进入你的项目文件夹下clone 本 git 项目
+2.进入你的项目文件夹下clone 本 git 项目  
     进入

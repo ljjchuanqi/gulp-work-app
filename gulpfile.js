@@ -85,7 +85,9 @@ gulp.task('css', function() {
 //babel编译js代码
 gulp.task('babel', function() {
     return gulp.src(D_DIR + 'babel/*.js')
-        .pipe(babel())
+        .pipe(babel({
+            presets:['es2015']
+        }))
         .pipe(gulp.dest(D_DIR + 'js'))
 });
 

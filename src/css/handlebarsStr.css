@@ -1,0 +1,7 @@
+{{#sprites}}
+.{{name}}{
+    background-position: torem({{px.offset_x}}) torem({{px.offset_y}});
+    width: torem({{px.width}});
+    height: torem({{px.height}});
+}
+{{/sprites}}

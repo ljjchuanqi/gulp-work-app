@@ -1,0 +1,306 @@
+/**
+ * @name: KISSY CSS Reset
+ * @description: 清除和重置是紧密不可分的
+ * @author: 玉伯(lifesinger@gmail.com), 正淳(ragecarrier@gmail.com)
+ * @修改时间:2017-07-21;
+ */
+
+
+/* 清除内外边距 */
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+fieldset,
+lengend,
+button,
+input,
+textarea,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*标签block*/
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block
+}
+
+
+/* 设置默认字体 */
+
+body,
+button,
+input,
+select,
+textarea {
+    /* for ie */
+    /*font: 12px/1 Tahoma, Helvetica, Arial, "宋体", sans-serif;*/
+    font: 12px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    /* 用 ascii 字符表示，使得在任何编码下都无问题 */
+}
+
+h1 {
+    font-size: 18px;
+    /* 18px / 12px = 1.5 */
+}
+
+h2 {
+    font-size: 16px;
+}
+
+h3 {
+    font-size: 14px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 100%;
+}
+
+address,
+cite,
+dfn,
+em,
+var {
+    font-style: normal;
+}
+
+
+/* 将斜体扶正 */
+
+code,
+kbd,
+pre,
+samp,
+tt {
+    font-family: "Courier New", Courier, monospace;
+}
+
+
+/* 统一等宽字体 */
+
+small {
+    font-size: 12px;
+}
+
+
+/* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+
+/* 重置列表元素 */
+
+ul,
+ol {
+    list-style: none;
+}
+
+
+/* 重置文本格式元素 */
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+abbr[title],
+acronym[title] {
+    /* 注：1.ie6 不支持 abbr; 2.这里用了属性选择符，ie6 下无效果 */
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+}
+
+
+/* 重置表单元素 */
+
+legend {
+    color: #000;
+}
+
+
+/* for ie6 */
+
+fieldset {
+    border: none;
+}
+
+
+/* img 搭车：让链接里的 img 无边框 */
+
+
+/* 注：optgroup 无法扶正 */
+
+button,
+input,
+select,
+textarea {
+    font-size: 100%;
+    /* 使得表单元素在 ie 下能继承字体大小 */
+}
+
+input,
+textarea {
+    border: none;
+    outline: none;
+}
+
+
+/* 重置表格元素 */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/*重置图片元素*/
+
+img {
+    border: none;
+}
+
+
+/* 重置 hr */
+
+hr {
+    border: none;
+    height: 1px;
+}
+
+
+/* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
+
+html {
+    overflow-y: scroll;
+}
+
+.m_popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.63);
+  z-index: 99;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  visibility: hidden; }
+  .m_popup .popup-content {
+    position: relative;
+    width: 9.17333rem;
+    height: 7.46667rem;
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 0.4rem; }
+    .m_popup .popup-content a {
+      display: block; }
+  .m_popup .pic {
+    width: 100%;
+    height: 5.4rem; }
+    .m_popup .pic img {
+      width: 100%;
+      height: 100%; }
+  .m_popup .txt {
+    border: 1px solid #e5e5e5;
+    padding: 0.18667rem;
+    margin-bottom: 0.18667rem;
+    border-right: 2px solid #e5e5e5; }
+    .m_popup .txt .name {
+      color: #898989;
+      font-size: 0.34667rem; }
+    .m_popup .txt .address {
+      color: #898989;
+      font-size: 0.32rem; }
+  .m_popup .close {
+    position: absolute;
+    right: -0.18667rem;
+    top: -0.22667rem;
+    width: 0.82667rem;
+    height: 0.82667rem;
+    background: url(../images/close.png) no-repeat;
+    background-size: contain;
+    z-index: 99; }
+
+.m_popup_pro .popup-content {
+  padding: 0rem;
+  background-color: #49637e; }
+
+.m_popup_pro .pic {
+  width: 100%;
+  height: 6.6rem; }
+  .m_popup_pro .pic img {
+    width: 100%;
+    height: 100%; }
+
+.m_popup_pro .txt-pro {
+  padding: 0.13333rem;
+  background-color: #49637e; }
+  .m_popup_pro .txt-pro span {
+    color: #fff;
+    font-size: 0.32rem; }
+
+.m_showShop .hd {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center; }
+  .m_showShop .hd li {
+    display: inline-block;
+    width: 23px;
+    height: 4px;
+    background-color: #787878;
+    text-indent: 9999px;
+    margin-right: 8px; }
+    .m_showShop .hd li.on {
+      background-color: #181818; }
+
+.m_showShop_pro {
+  position: relative; }
+  .m_showShop_pro .hd {
+    z-index: 9; }

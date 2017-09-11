@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Remodal example</title>
+  <meta name="description" content="Remodal example">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/modal.min.css">
+  <style>
+  .btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: #333333;
+  text-decoration: none;
+}
+.btn:active,
+.btn.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.btn.disabled,
+.btn[disabled],
+  </style>
+</head>
+<body>
+<!-- Button trigger modal -->
+<button type="button" class="btn qqqqq" data-url="images/1.jpg,images/2.jpg" data-name="ljj" data-address="chidian">
+  Launch demo modal1
+</button>
+<button type="button" class="btn qqqqq" data-url="images/1.jpg,images/2.jpg,images/3.jpg" data-name="lld" data-address="jinjiang">
+  Launch demo modal2
+</button>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body" id="j_showShop">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+        <button type="button" class="btn">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>	
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="js/TouchSlide.1.1.js"></script>
+<script src="js/modal.min.js"></script>
+
+<!-- Events -->
+<script>
+	function htmlTemplate(url, nameStr, addressStr) {
+
+        var urlArr = url.split(",");
+
+        var len = urlArr.length;
+        var str = "<div class='hd'><ul></ul></div>";
+        str += "<div class='bd'><ul>";
+        for (var i = 0; i < len; i++) {
+            str += "<li>";
+            str += "<a href='javascript:;'>";
+            str += "<div class='txt'>";
+            str += "<p class='name'>" + nameStr + "</p>";
+            str += "<p class='address'>" + addressStr + "</p>";
+            str += "</div>";
+            str += "<div class='pic'>";
+            str += " <img src=" + urlArr[i] + ">";
+            str += "</div>";
+            str += "</a>";
+            str += "</li>";
+        }
+        str += "</ul></div>";
+        return str;
+    }
+	$(".qqqqq").click(function(){
+		$("#myModal").modal('show');
+		var nameStr = $(this).data("name");
+        var addressStr = $(this).data("address");
+		var url = $(this).data("url");
+		var htmlStr=htmlTemplate(url,nameStr,addressStr);
+		$('.modal-body').html(htmlStr);
+		TouchSlide({
+            slideCell: "#j_showShop",
+            titCell: ".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+            mainCell: ".bd ul",
+            effect: "leftLoop",
+            autoPlay: true, //自动播放
+            autoPage: true //自动分页
+        });
+	});
+	$('.close').click(function(){
+		$('.modal-body').html("");
+	})
+</script>
+</body>
+</html>

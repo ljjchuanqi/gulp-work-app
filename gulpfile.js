@@ -6,6 +6,7 @@ var path = require('path');
 // sass和postcss一起使用
 var sass = require('gulp-sass');
 var postcss = require('gulp-postcss');
+var sourcemaps = require('gulp-sourcemaps');
 //postcss插件
 var autoprefixer = require('autoprefixer');
 //生成雪碧图插件
@@ -20,9 +21,9 @@ var uglify = require('gulp-uglify');
 //es6编译
 babel = require('gulp-babel');
 //ejs相关插件
-var data = require('gulp-data');
-var ejs = require('gulp-ejs');
-var util = require('gulp-util');
+// var data = require('gulp-data');
+// var ejs = require('gulp-ejs');
+// var util = require('gulp-util');
 //服务器相关插件
 var lr = require('tiny-lr');
 var server = lr();
@@ -31,16 +32,18 @@ var webserver = require('gulp-webserver');
 var opn = require('opn');
 //文件打包
 var zip = require('gulp-zip');
-
+//mustache模板引擎
+var mustache = require('gulp-mustache');
 //开发目录
 var D_DIR = './src/';
 var P_DIR = './dist/';
 
+//生成雪碧图
 gulp.task('sprite', function() {
     return gulp.src(D_DIR + 'images/icon/*.png')
         .pipe(spritesmith({
-            imgName: 'images/sprite.png', //保存合并后图片的地址
-            cssName: 'sass/icon/sprite.css', //保存合并后对于css样式的地址
+            imgName: 'images/icon.png', //保存合并后图片的地址
+            cssName: 'sass/icon/_icon.scss', //保存合并后对于css样式的地址
             padding: 5, //合并时两个图片的间距
             algorithm: 'binary-tree', //注释1
             cssTemplate: D_DIR + "sass/icon/handlebarsStr.css" //注释2
@@ -73,8 +76,10 @@ gulp.task('css', function() {
         autoprefixer
     ];
     return gulp.src(D_DIR + 'sass/**/*.scss')
+        .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss(plugins))
+        .pipe(sourcemaps.write('./map'))
         .pipe(gulp.dest(D_DIR + 'css'))
 });
 //babel编译js代码
@@ -82,7 +87,7 @@ gulp.task('babel', function() {
     return gulp.src(D_DIR + 'babel/*.js')
         .pipe(babel())
         .pipe(gulp.dest(D_DIR + 'js'))
-})
+});
 
 
 //将相关项目文件复制到dist文件夹下
@@ -106,7 +111,7 @@ gulp.task('watch', function() {
     //监听scss文件
     gulp.watch(D_DIR + 'sass/**/*.scss', ['css']);
     //监听模板和数据文件
-    gulp.watch([D_DIR + "templates/**/*", D_DIR + "data/*.json"], ['ejs']);
+    gulp.watch([D_DIR + "templates/**/*", D_DIR + "data/*.json"], ['mustache']);
     //监听html文件
     gulp.watch([D_DIR + '*.html', D_DIR + 'css/*.css', D_DIR + 'js/*.js'], function(e) {
         server.changed({
@@ -129,7 +134,7 @@ gulp.task('webserver', function() {
 //通过游览器打开web服务器
 gulp.task('openbrowser', function() {
     opn("http://" + config.localserver.host + ":" + config.localserver.port);
-})
+});
 
 //打包主体dist文件夹并按照时间重命名
 gulp.task('zip', function() {
@@ -152,25 +157,15 @@ gulp.task('zip', function() {
         .pipe(gulp.dest('./'));
 });
 
-//ejs编译成html
-gulp.task('ejs', function() {
-    gulp.src(D_DIR + 'templates/*.html')
-        .pipe(data(function(file) {
-            var filePath = file.path;
-            // global.json 全局数据，页面中直接通过属性名调用
-            return Object.assign(JSON.parse(fs.readFileSync(D_DIR + 'data/global.json')), {
-                // local: 每个页面对应的数据，页面中通过 local.属性 调用
-                local: JSON.parse(fs.readFileSync(path.join(D_DIR, '/data', path.basename(filePath, '.html') + '.json')))
-            })
-        }))
-        .pipe(ejs().on('error', function(err) {
-            util.log(err);
-            this.emit('end');
-        }))
+//mustache编译成html
+gulp.task('mustache', function() {
+    return gulp.src(D_DIR + 'templates/*.mustache')
+        .pipe(mustache(D_DIR + 'data/data.json', {
+            extension: '.html'
+        }, {}))
         .pipe(gulp.dest(D_DIR));
 });
 
-
 //生成发布版本
 gulp.task('build', ['imagemin', 'minifyjs', 'cp']);
-gulp.task('web', ['css', 'ejs', 'watch', 'webserver', 'openbrowser']);
+gulp.task('web', ['css', 'mustache', 'watch', 'webserver', 'openbrowser']);

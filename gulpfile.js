@@ -86,7 +86,7 @@ gulp.task('css', function() {
 gulp.task('babel', function() {
     return gulp.src(D_DIR + 'babel/*.js')
         .pipe(babel({
-            presets: ['es2015']
+            presets: ['env']
         }))
         .pipe(gulp.dest(D_DIR + 'js'))
 });

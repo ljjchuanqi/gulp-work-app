@@ -86,7 +86,7 @@ gulp.task('css', function() {
 gulp.task('babel', function() {
     return gulp.src(D_DIR + 'babel/*.js')
         .pipe(babel({
-            presets:['es2015']
+            presets: ['es2015']
         }))
         .pipe(gulp.dest(D_DIR + 'js'))
 });
@@ -167,6 +167,7 @@ gulp.task('mustache', function() {
         }, {}))
         .pipe(gulp.dest(D_DIR));
 });
+
 
 //生成发布版本
 gulp.task('build', ['imagemin', 'minifyjs', 'cp']);

@@ -16,6 +16,7 @@ copy = require("gulp-copy");
 //图片压缩插件
 var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
+var tinypng_nokey = require('gulp-tinypng-nokey');
 //js压缩插件
 var uglify = require('gulp-uglify');
 //es6编译
@@ -51,7 +52,7 @@ gulp.task('sprite', function() {
         .pipe(gulp.dest(D_DIR))
 });
 
-//压缩图片
+//压缩图片1
 gulp.task('imagemin', function() {
     return gulp.src(D_DIR + 'images/**/*')
         .pipe(imagemin({
@@ -63,6 +64,13 @@ gulp.task('imagemin', function() {
         }))
         .pipe(gulp.dest(P_DIR + 'images'));
 });
+//压缩图片2
+gulp.task('tp', function() {
+   return gulp.src(D_DIR + 'images/**/*')
+        .pipe(tinypng_nokey ())
+        .pipe(gulp.dest(P_DIR + 'images'))
+})
+
 //压缩javascript 文件
 gulp.task('minifyjs', function() {
     gulp.src(D_DIR + 'js/*.js')
@@ -85,9 +93,7 @@ gulp.task('css', function() {
 //babel编译js代码
 gulp.task('babel', function() {
     return gulp.src(D_DIR + 'babel/*.js')
-        .pipe(babel({
-            presets: ['env']
-        }))
+        .pipe(babel())
         .pipe(gulp.dest(D_DIR + 'js'))
 });
 
@@ -168,7 +174,7 @@ gulp.task('mustache', function() {
         .pipe(gulp.dest(D_DIR));
 });
 
-
 //生成发布版本
-gulp.task('build', ['imagemin', 'minifyjs', 'cp']);
+gulp.task('build', ['tp', 'minifyjs', 'cp']);
+gulp.task('build2', ['minifyjs', 'cp']);
 gulp.task('web', ['css', 'mustache', 'watch', 'webserver', 'openbrowser']);
